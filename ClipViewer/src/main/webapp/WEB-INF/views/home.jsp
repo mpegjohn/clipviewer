@@ -81,6 +81,7 @@ table {
 }
 </style>
 
+<!-- 
 <script type='text/javascript'>
 	<%int x=0;%>
 <c:forEach var="carousel_item" items="${thumbs}">
@@ -96,6 +97,7 @@ table {
 </c:forEach>
 
 </script>
+-->
 
 </head>
 <body>
