@@ -91,29 +91,29 @@ function mycarousel_itemLoadCallback(carousel, state)
         return;
     }
 
-    jQuery.getJSON(
-        'http://localhost:8080/clipviewer/thumbnails',
-        {
-            first: carousel.first,
-            last: carousel.last
-        },
+    jQuery.getJSON('http://localhost:8080/clipviewer/thumbnails',
+    		{first: 1,
+        last: 3},
         function(data) {
-        	alert(ajax.responseText);
+        	alert(data.total);
         	console.log('Testing console');
             mycarousel_itemAddCallback(carousel, carousel.first, carousel.last, data);
         }
-    );
+      );
+    
 };
 
 function mycarousel_itemAddCallback(carousel, first, last, json)
 {
-	console.log('Testing console');
+	console.log(json.imageList[0]);
     // Set the size of the carousel
     carousel.size(parseInt(json.total));
 
-    jQuery.each(json.imageList, function(index, value) {
-        carousel.add(first + i, mycarousel_getItemHTML(value));
-    });
+    for(var i = 0; i < json.imageList.length; i++)
+    {
+    	console.log(json.imageList[i].url);
+    	
+    }
 };
 
 /**
