@@ -81,62 +81,82 @@ table {
 }
 </style>
 
-<!-- 
-<script type='text/javascript'>
-	<%int x=0;%>
-<c:forEach var="carousel_item" items="${thumbs}">
-	var mycarousel_array_<%=x%>= new Array();
-	
-	function init_mycarousel_array_<%=x%>() {
-		<c:forEach var="item" items="${carousel_item}">
-			<s:url value="${item['imagePath']}" var="thumb_uri" htmlEscape="true" />
-			mycarousel_array_<%=x%>.push({url: "${thumb_uri}", timestamp: '${item["imageTime"]}'});
-		</c:forEach>
-		};
-	<% x++; %>
-</c:forEach>
+<script type="text/javascript">
+
+function mycarousel_itemLoadCallback(carousel, state)
+{
+	//console.log('Testing console');
+    // Check if the requested items already exist
+    if (carousel.has(carousel.first, carousel.last)) {
+        return;
+    }
+
+    jQuery.getJSON(
+        'http://localhost:8080/clipviewer/thumbnails',
+        {
+            first: carousel.first,
+            last: carousel.last
+        },
+        function(data) {
+        	alert(ajax.responseText);
+        	console.log('Testing console');
+            mycarousel_itemAddCallback(carousel, carousel.first, carousel.last, data);
+        }
+    );
+};
+
+function mycarousel_itemAddCallback(carousel, first, last, json)
+{
+	console.log('Testing console');
+    // Set the size of the carousel
+    carousel.size(parseInt(json.total));
+
+    jQuery.each(json.imageList, function(index, value) {
+        carousel.add(first + i, mycarousel_getItemHTML(value));
+    });
+};
+
+/**
+ * Item html creation helper.
+ */
+function mycarousel_getItemHTML(url)
+{
+    return '<img src="' + url + '" width="75" height="75" alt="" />';
+};
+
+jQuery(document).ready(function() {
+    jQuery('#mycarousel').jcarousel({
+        // Uncomment the following option if you want items
+        // which are outside the visible range to be removed
+        // from the DOM.
+        // Useful for carousels with MANY items.
+
+        // itemVisibleOutCallback: {onAfterAnimation: function(carousel, item, i, state, evt) { carousel.remove(i); }},
+        itemLoadCallback: mycarousel_itemLoadCallback
+    });
+});
 
 </script>
--->
 
 </head>
 <body>
 
-	<div id="wrap">
-		<div id="imageList">
+<div id="wrap">
+  <h1>jCarousel</h1>
+  <h2>Riding carousels with jQuery</h2>
 
-			<ul id="carouselList">
-				<%
-					int i = 0;
-				%>
-				<c:forEach var="carousel_item" items="${thumbs}">
-					<li>
-						<ul id="mycarousel_<%=i++%>" class="jcarousel-skin-tango">
+  <h3>Carousel with dynamic content loading via Ajax</h3>
+  <p>
+    The data is loaded dynamically from a simple text file which contains the image urls.
+  </p>
 
-							<c:forEach var="item" items="${carousel_item}">
-								<li>
-									<table>
-										<tbody>
-											<tr>
-												<td class="image_cell"><s:url
-														value="${item['imagePath']}" var="thumb_uri"
-														htmlEscape="true" /> <img src="${thumb_uri}" /></td>
-											</tr>
-											<tr>
-												<td class="timestamp">${item["imageTime"]}</td>
-											</tr>
-										</tbody>
-									</table>
+  <div id="mycarousel" class="jcarousel-skin-tango">
+    <ul>
+      <!-- The content will be dynamically loaded in here -->
+    </ul>
+  </div>
 
-								</li>
-							</c:forEach>
+</div>
 
-						</ul>
-					</li>
-				</c:forEach>
-			</ul>
-		</div>
-
-	</div>
 </body>
 </html>

@@ -32,9 +32,26 @@ public class HomeController {
             produces = MediaType.APPLICATION_JSON_VALUE )
 	public @ResponseBody String listJSON(@RequestParam int first , @RequestParam int last )
 	{
-		logger.info("Getting thumbnails");
+		return "hello from me";
 		
-		return "hello";
+//		logger.info("Getting thumbnails");
+//		
+//		ImageItemList theList = new ImageItemList();
+//		
+//		ArrayList<ImageItem> imageItems = new ArrayList<ImageItem>();
+//		
+//		for (int i = 0; i < 3; i++) {
+//			ImageItem item = new ImageItem();
+//			
+//			item.setUrl("/resources/image[" + (i) + "].jpg");
+//			item.setTimeStamp("00:00:" + (i));
+//			imageItems.add(item);
+//		}
+//		
+//		theList.setImageList(imageItems);
+//		theList.setTotal(imageItems.size());
+//		
+//		return theList;
 	}
 	
 	
