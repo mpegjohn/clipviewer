@@ -112,16 +112,26 @@ function mycarousel_itemAddCallback(carousel, first, last, json)
     for(var i = 0; i < json.imageList.length; i++)
     {
     	console.log(json.imageList[i].url);
-    	
+    	var table = mycarousel_create_table(json.imageList[i].url, json.imageList[i].timestamp)
+    	carousel.add(table);
     }
 };
 
 /**
  * Item html creation helper.
  */
-function mycarousel_getItemHTML(url)
+function mycarousel_create_table(url, time)
 {
-    return '<img src="' + url + '" width="75" height="75" alt="" />';
+	var img_url = '<img src="<s:url value="'+ url +'"/>" />';
+	
+	var table = "<table>";
+	table += "<tr>";
+	table += "<td>" + img_url + "</td>";
+	table += "<td>" + time + "</td>";
+	table += "</tr>";
+	table += "</table>"
+	
+    return table;
 };
 
 jQuery(document).ready(function() {
