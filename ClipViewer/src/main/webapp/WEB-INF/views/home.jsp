@@ -107,13 +107,14 @@ function mycarousel_itemAddCallback(carousel, first, last, json)
 {
 	console.log(json.imageList[0]);
     // Set the size of the carousel
-    carousel.size(parseInt(json.total));
+    //carousel.size(parseInt(json.total));
+    carousel.size(3);
 
     for(var i = 0; i < json.imageList.length; i++)
     {
     	console.log(json.imageList[i].url);
     	var table = mycarousel_create_table(json.imageList[i].url, json.imageList[i].timestamp)
-    	carousel.add(table);
+    	carousel.add(i+first,table);
     }
 };
 
@@ -122,14 +123,17 @@ function mycarousel_itemAddCallback(carousel, first, last, json)
  */
 function mycarousel_create_table(url, time)
 {
-	var img_url = '<img src="<s:url value="'+ url +'"/>" />';
+	
+	var img_url = '<img src="<c:url value="'+ url +'"/>" />';
+	//var img_url = '<img src="clipviewer/resources/image[1].jpg" />';
+	return img_url;
 	
 	var table = "<table>";
 	table += "<tr>";
 	table += "<td>" + img_url + "</td>";
 	table += "<td>" + time + "</td>";
 	table += "</tr>";
-	table += "</table>"
+	table += "</table>";
 	
     return table;
 };
