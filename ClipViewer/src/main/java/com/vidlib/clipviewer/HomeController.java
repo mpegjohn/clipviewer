@@ -1,5 +1,7 @@
 package com.vidlib.clipviewer;
 
+import java.io.IOException;
+import java.net.URL;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -10,6 +12,8 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,10 +41,27 @@ public class HomeController {
 		
 		ImageItemList theList = new ImageItemList();
 		
+		
+		
 		ArrayList<ImageItem> imageItems = new ArrayList<ImageItem>();
 		
 		for (int i = 0; i < 3; i++) {
 			ImageItem item = new ImageItem();
+			FileSystemResource urlRes = new FileSystemResource("/home/john/Dropbox/temp_jpgs/image[" + (i) + "].jpg");
+			if(urlRes.exists())
+			{
+			
+			try {
+				@SuppressWarnings("unused")
+				URL url = urlRes.getURL();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			
+			}
 			
 			item.setUrl("/resources/image[" + (i) + "].jpg");
 			item.setTimeStamp("00:00:" + (i));
