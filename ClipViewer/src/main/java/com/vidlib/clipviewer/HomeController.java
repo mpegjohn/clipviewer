@@ -41,29 +41,12 @@ public class HomeController {
 		
 		ImageItemList theList = new ImageItemList();
 		
-		
-		
 		ArrayList<ImageItem> imageItems = new ArrayList<ImageItem>();
 		
-		for (int i = 0; i < 3; i++) {
+		for (int i = 1; i < 4; i++) {
 			ImageItem item = new ImageItem();
-			FileSystemResource urlRes = new FileSystemResource("/home/john/Dropbox/temp_jpgs/image[" + (i) + "].jpg");
-			if(urlRes.exists())
-			{
 			
-			try {
-				@SuppressWarnings("unused")
-				URL url = urlRes.getURL();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			
-			
-			}
-			
-			item.setUrl("/resources/image[" + (i) + "].jpg");
+			item.setUrl("/image[" + (i) + "].jpg");
 			item.setTimeStamp("00:00:" + (i));
 			imageItems.add(item);
 		}
