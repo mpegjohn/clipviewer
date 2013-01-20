@@ -91,24 +91,22 @@ function mycarousel_itemLoadCallback(carousel, state)
         return;
     }
 
-    jQuery.getJSON('http://localhost:8080/clipviewer/thumbnails',
-    		{first: 1,
-        last: 3},
+    jQuery.getJSON('<c:url value="/thumbnails"/>',
+    		{first: carousel.first,
+        last: carousel.last},
         function(data) {
-        	alert(data.total);
         	console.log('Testing console');
             mycarousel_itemAddCallback(carousel, carousel.first, carousel.last, data);
         }
-      );
-    
+      );    
 };
 
 function mycarousel_itemAddCallback(carousel, first, last, json)
 {
-	console.log(json.imageList[0]);
     // Set the size of the carousel
-    //carousel.size(parseInt(json.total));
-    carousel.size(3);
+    carousel.size(parseInt(json.total));
+   
+    
 
     for(var i = 0; i < json.imageList.length; i++)
     {
@@ -124,15 +122,19 @@ function mycarousel_itemAddCallback(carousel, first, last, json)
  */
 function mycarousel_create_table(url, time)
 {
-	var base_url = '<c:url value="/resources/"/>';
+	var base_url = '<s:url value="/images"/>';
 	
 	var img_url = '<img src="' + base_url + url + '" />';
+	
+	console.log(img_url);
 	
 	var table = "<table>";
 	table += "<tbody>";
 	table += "<tr>";
-	table += "<td>" + img_url + "</td>";
-	table += "<td>" + time + "</td>";
+	table += '<td id="image_cell">' + img_url + '</td>';
+	table += "</tr>";
+	table += "<tr>";
+	table += '<td id="timestamp">' + time + '</td>';
 	table += "</tr>";
 	table += "</tbody>";
 	table += "</table>";
