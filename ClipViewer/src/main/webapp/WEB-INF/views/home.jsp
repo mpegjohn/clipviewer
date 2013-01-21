@@ -87,16 +87,28 @@ function mycarousel_itemLoadCallback(carousel, state)
 {
 	//console.log('Testing console');
     // Check if the requested items already exist
+
     if (carousel.has(carousel.first, carousel.last)) {
         return;
     }
 
+    var first = carousel.first;
+    
+    for(var i = carousel.first; i <= carousel.last; i++)
+    {
+    	if(!carousel.has(i))
+    	{
+    		first = i;
+    		break;	
+    	}
+    }
+    
     jQuery.getJSON('<c:url value="/thumbnails"/>',
-    		{first: carousel.first,
+    		{first: first,
         last: carousel.last},
         function(data) {
         	console.log('Testing console');
-            mycarousel_itemAddCallback(carousel, carousel.first, carousel.last, data);
+            mycarousel_itemAddCallback(carousel, first, carousel.last, data);
         }
       );    
 };
@@ -150,6 +162,7 @@ jQuery(document).ready(function() {
         // Useful for carousels with MANY items.
 
         // itemVisibleOutCallback: {onAfterAnimation: function(carousel, item, i, state, evt) { carousel.remove(i); }},
+        
         itemLoadCallback: mycarousel_itemLoadCallback
     });
 });

@@ -69,7 +69,7 @@ public class HomeController {
 			logger.info("Adding-" + slice.get(i));
 			
 			item.setUrl("/" + slice.get(i));
-			item.setTimeStamp("00:00:" + i);
+			item.setTimeStamp(slice.get(i));
 			imageItems.add(item);
 		}
 
