@@ -8,7 +8,7 @@
 <head>
 <title>jCarousel Examples</title>
 <link rel="stylesheet" type="text/css"
-	href="<c:url value="/resources/jcarousel/style.css" />" ></link>
+	href="<c:url value="/resources/jcarousel/style.css" />" />
 <!--
   jQuery library
 -->
@@ -25,8 +25,8 @@
   jCarousel skin stylesheet
 -->
 <link rel="stylesheet" type="text/css"
-	href="<c:url value="/resources/jcarousel/skins/tango/skin.css" />">
-</link>
+	href="<c:url value="/resources/jcarousel/skins/tango/skin.css" />" />
+
 
 
 
@@ -117,8 +117,7 @@ function mycarousel_itemAddCallback(carousel, first, last, json)
 {
     // Set the size of the carousel
     carousel.size(parseInt(json.total));
-   
-    
+
 
     for(var i = 0; i < json.imageList.length; i++)
     {
@@ -150,7 +149,7 @@ function mycarousel_create_table(url, time)
 	table += "</tr>";
 	table += "</tbody>";
 	table += "</table>";
-	
+
     return table;
 };
 
