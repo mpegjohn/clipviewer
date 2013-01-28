@@ -20,7 +20,7 @@
   jCarousel library
 -->
 <script type="text/javascript"
-	src="<c:url value="/resources/jcarousel/lib/jquery.jcarousel.min.js" />"></script>
+	src="<c:url value="/resources/jcarousel/lib/jquery.jcarousel.js" />"></script>
 <!--
   jCarousel skin stylesheet
 -->
@@ -103,21 +103,25 @@ function mycarousel_itemLoadCallback(carousel, state)
     	}
     }
     
+    var last = carousel.last;
+    
     jQuery.getJSON('<c:url value="/thumbnails"/>',
     		{first: first,
-        last: carousel.last},
+        last: last,
+        id: carousel.carouselid.substring(9) // stripping out 'carousel' to get integer
+        },
         function(data) {
         	console.log('Testing console');
-            mycarousel_itemAddCallback(carousel, first, carousel.last, data);
+            mycarousel_itemAddCallback(carousel, first, data);
         }
       );    
 };
 
-function mycarousel_itemAddCallback(carousel, first, last, json)
+function mycarousel_itemAddCallback(carousel, first, json)
 {
     // Set the size of the carousel
-    carousel.size(parseInt(json.total));
 
+    	carousel.size(parseInt(json.total));
 
     for(var i = 0; i < json.imageList.length; i++)
     {
@@ -153,18 +157,26 @@ function mycarousel_create_table(url, time)
     return table;
 };
 
-jQuery(document).ready(function() {
-    jQuery('#mycarousel').jcarousel({
-        // Uncomment the following option if you want items
-        // which are outside the visible range to be removed
-        // from the DOM.
-        // Useful for carousels with MANY items.
+// From http://jquery.10927.n7.nabble.com/multiple-dynamic-jcarousel-instances-td114488.html
 
-        // itemVisibleOutCallback: {onAfterAnimation: function(carousel, item, i, state, evt) { carousel.remove(i); }},
-        
-        itemLoadCallback: mycarousel_itemLoadCallback
-    });
+
+$(document).ready(function(){ // MAKE CAROUSELS 
+    $('.dynamiccarousel').each(function(){ 
+            $(this).jcarousel({ 
+                    itemLoadCallback: mycarousel_itemLoadCallback, 
+                    initCallback: initiate_carousel, 
+                    carouselid: this.id, //important! 
+            }); 
+    }); 
 });
+
+function initiate_carousel(carousel,state){ // ON EACH INITIATION, ASSIGN AN ID TO THE CAROUSEL INSTANCE 
+
+	console.log("Here");
+	carousel.carouselid = 2;//this.carouselid;
+	
+}; 
+
 
 </script>
 
@@ -172,20 +184,19 @@ jQuery(document).ready(function() {
 <body>
 
 <div id="wrap">
-  <h1>jCarousel</h1>
-  <h2>Riding carousels with jQuery</h2>
-
-  <h3>Carousel with dynamic content loading via Ajax</h3>
-  <p>
-    The data is loaded dynamically from a simple text file which contains the image urls.
-  </p>
-
-  <div id="mycarousel" class="jcarousel-skin-tango">
-    <ul>
-      <!-- The content will be dynamically loaded in here -->
-    </ul>
-  </div>
-
+	<div id="imageList">
+		<ul id="carouselList">
+			<c:forEach var="carousel_item" items="${scene_id}">
+				<li>
+					<div id="mycarousel_${carousel_item}" class="dynamiccarousel jcarousel-skin-tango">
+    						<ul>
+      						<!-- The content will be dynamically loaded in here -->
+						</ul>
+					</div>
+				</li>
+			</c:forEach>
+		</ul>
+	</div>
 </div>
 
 </body>
