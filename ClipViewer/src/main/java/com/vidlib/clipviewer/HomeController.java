@@ -48,7 +48,7 @@ public class HomeController {
 
 	@RequestMapping(value = "/thumbnails", method = (RequestMethod.GET), produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody
-	ImageItemList listJSON(@RequestParam int first, @RequestParam int last, @RequestParam int id) {
+	ImageItemList listJSON(@RequestParam int first, @RequestParam int last, @RequestParam String id) {
 
 		logger.info("Getting thumbnails");
 		logger.info("First:" + first + " last:" + last + " id:" + id);

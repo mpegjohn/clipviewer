@@ -28,15 +28,6 @@
 	href="<c:url value="/resources/jcarousel/skins/tango/skin.css" />" />
 
 
-
-
-<script type="text/javascript"
-	src="<c:url value="/resources/javascript/image_list.js" />">
-	
-</script>
-
-
-
 <style type="text/css">
 td,tr,img {
 	padding: 0px;
@@ -108,7 +99,7 @@ function mycarousel_itemLoadCallback(carousel, state)
     jQuery.getJSON('<c:url value="/thumbnails"/>',
     		{first: first,
         last: last,
-        id: carousel.carouselid.substring(9) // stripping out 'carousel' to get integer
+        id: carousel.carouselid.substring(11) // stripping out 'carousel' to get integer
         },
         function(data) {
         	console.log('Testing console');
@@ -172,9 +163,10 @@ $(document).ready(function(){ // MAKE CAROUSELS
 
 function initiate_carousel(carousel,state){ // ON EACH INITIATION, ASSIGN AN ID TO THE CAROUSEL INSTANCE 
 
-	console.log("Here");
-	carousel.carouselid = 2;//this.carouselid;
-	
+	if(state == 'init')
+	{
+		carousel.carouselid = this.carouselid;
+	}
 }; 
 
 
