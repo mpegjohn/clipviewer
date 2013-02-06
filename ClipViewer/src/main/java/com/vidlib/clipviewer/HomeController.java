@@ -5,19 +5,12 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +30,9 @@ import org.springframework.web.util.UrlPathHelper;
 @Controller
 public class HomeController {
 
+	@Autowired
+	private MediaDAO dao;
+	
 	@Autowired
 	private FileStore fileStore;
 
@@ -130,6 +126,9 @@ public class HomeController {
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 
+		
+		String name = dao.findFirstMediaName();
+		
 		int [] scene_id = new int[3];
 		
 		scene_id[0] = 1;

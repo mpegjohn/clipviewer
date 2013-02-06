@@ -13,7 +13,7 @@
   jQuery library
 -->
 <script type="text/javascript"
-	src="<c:url value="/resources/jcarousel/lib/jquery-1.4.2.min.js" />">
+	src="http://code.jquery.com/jquery-1.8.0.min.js">
 	
 </script>
 <!--
@@ -102,7 +102,7 @@ function mycarousel_itemLoadCallback(carousel, state)
         id: carousel.carouselid.substring(11) // stripping out 'carousel' to get integer
         },
         function(data) {
-        	console.log('Testing console');
+        	//console.log('Testing console');
             mycarousel_itemAddCallback(carousel, first, data);
         }
       );    
@@ -116,7 +116,7 @@ function mycarousel_itemAddCallback(carousel, first, json)
 
     for(var i = 0; i < json.imageList.length; i++)
     {
-    	console.log(json.imageList[i].url);
+    	//console.log(json.imageList[i].url);
     	var table = mycarousel_create_table(json.imageList[i].url, json.imageList[i].timeStamp);
     	
     	carousel.add(i+first,table);
@@ -132,7 +132,7 @@ function mycarousel_create_table(url, time)
 	
 	var img_url = '<img src="' + base_url + url + '" />';
 	
-	console.log(img_url);
+	//console.log(img_url);
 	
 	var table = "<table>";
 	table += "<tbody>";
@@ -152,14 +152,30 @@ function mycarousel_create_table(url, time)
 
 
 $(document).ready(function(){ // MAKE CAROUSELS 
-    $('.dynamiccarousel').each(function(){ 
-            $(this).jcarousel({ 
-                    itemLoadCallback: mycarousel_itemLoadCallback, 
-                    initCallback: initiate_carousel, 
-                    carouselid: this.id, //important! 
-            }); 
-    }); 
+    
+	setup_carousels();
+	
+    $("#clear_button").click(function(){
+        $("#carouselList").remove();
+    });
+    
+    $("#add_button").click(function(){
+        $("#imageList").append('<ul id="carouselList"></ul>');
+        $("#carouselList").append('<li> <div id="mycarousel_1" class="dynamiccarousel jcarousel-skin-tango"> <ul></ul></div></li>');
+        setup_carousels();
+    });
 });
+
+function setup_carousels()
+{
+	$('.dynamiccarousel').each(function(){ 
+    	$(this).jcarousel({ 
+        	    itemLoadCallback: mycarousel_itemLoadCallback, 
+            	initCallback: initiate_carousel, 
+            	carouselid: this.id, //important!
+    	}); 
+	});
+};
 
 function initiate_carousel(carousel,state){ // ON EACH INITIATION, ASSIGN AN ID TO THE CAROUSEL INSTANCE 
 
@@ -167,7 +183,8 @@ function initiate_carousel(carousel,state){ // ON EACH INITIATION, ASSIGN AN ID 
 	{
 		carousel.carouselid = this.carouselid;
 	}
-}; 
+};
+
 
 
 </script>
@@ -190,6 +207,8 @@ function initiate_carousel(carousel,state){ // ON EACH INITIATION, ASSIGN AN ID 
 		</ul>
 	</div>
 </div>
-
+<p>
+<input type="button" id="clear_button" value="Clear"/><input type="button" id="add_button" value="Next"/>
+</p>
 </body>
 </html>
