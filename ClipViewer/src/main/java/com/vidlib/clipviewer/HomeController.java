@@ -136,7 +136,7 @@ public class HomeController {
 		scene_id[2] = 3;
 		
 		model.addAttribute("scene_id",scene_id );
-		return "home";
+		return "Test_Home";
 	}
 
 }
