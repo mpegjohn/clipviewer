@@ -9,7 +9,7 @@
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
 		<java-version>1.6</java-version>
-		<org.springframework-version>3.1.1.RELEASE</org.springframework-version>
+		<spring.framework.version>3.1.1.RELEASE</spring.framework.version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
@@ -18,7 +18,7 @@
 			<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-			<version>3.6.0.Final</version>
+			<version>3.6.8.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.validation</groupId>
@@ -35,7 +35,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>${org.springframework-version}</version>
+			<version>${spring.framework.version}</version>
 			<exclusions>
 				<!-- Exclude Commons Logging in favor of SLF4j -->
 				<exclusion>
@@ -47,7 +47,7 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>${org.springframework-version}</version>
+			<version>${spring.framework.version}</version>
 		</dependency>
 				
 		<!-- AspectJ -->
@@ -75,10 +75,18 @@
 			<version>${org.slf4j-version}</version>
 			<scope>runtime</scope>
 		</dependency>
+
+
+               <dependency>
+                        <groupId>org.springframework.data</groupId>
+                        <artifactId>spring-data-jpa</artifactId>
+                        <version>1.0.1.RELEASE</version>
+                </dependency>
+
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.15</version>
+			<version>1.2.16</version>
 			<exclusions>
 				<exclusion>
 					<groupId>javax.mail</groupId>
@@ -133,6 +141,23 @@
 			<version>4.7</version>
 			<scope>test</scope>
 		</dependency>
+                <dependency>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-test</artifactId>
+                        <version>${spring.framework.version}</version>
+                        <scope>test</scope>
+                </dependency>
+                <dependency>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-context-support</artifactId>
+                        <version>${spring.framework.version}</version>
+                </dependency>
+                <dependency>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>spring-orm</artifactId>
+                        <version>${spring.framework.version}</version>
+                </dependency>
+
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-lgpl</artifactId>
@@ -153,6 +178,22 @@
 			<artifactId>spring-jdbc</artifactId>
 			<version>3.1.0.RELEASE</version>
 		</dependency>
+
+               <dependency>
+                        <groupId>com.github.springtestdbunit</groupId>
+                        <artifactId>spring-test-dbunit</artifactId>
+                        <version>1.0.0</version>
+                        <scope>test</scope>
+                </dependency>
+                <dependency>
+                        <groupId>org.dbunit</groupId>
+                        <artifactId>dbunit</artifactId>
+                        <version>2.4.8</version>
+                        <type>jar</type>
+                        <scope>test</scope>
+                </dependency>
+
+
 	</dependencies>
     <build>
         <plugins>

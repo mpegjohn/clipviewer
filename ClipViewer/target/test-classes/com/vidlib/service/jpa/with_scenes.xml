@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+	<media id_media="1" type="0" name="First media" numScenes="0"
+		id_serialnumber="0" version="0" importdate="2013-01-02 01:02:03"/>
+	<scene id_scene="1" id_media="1" sceneNumber="1" />
+	<scene id_scene="2" id_media="1" sceneNumber="2" />
+	<scene id_scene="3" id_media="1" sceneNumber="3" />
+	<scene id_scene="4" id_media="1" sceneNumber="4" />
+	<scene id_scene="5" id_media="1" sceneNumber="5" />
+	<scene id_scene="6" id_media="1" sceneNumber="6" />
+	<scene id_scene="7" id_media="1" sceneNumber="7" />
+	<scene id_scene="8" id_media="1" sceneNumber="8" />
+	<scene id_scene="9" id_media="1" sceneNumber="9" />
+	<scene id_scene="10" id_media="1" sceneNumber="10" />
+	
+	<notes />
+	<property />
+</dataset>

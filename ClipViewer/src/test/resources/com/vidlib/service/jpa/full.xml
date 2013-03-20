@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+  <contact ID="1" FIRST_NAME="Michael" LAST_NAME="Jackson" BIRTH_DATE="2013-02-23" VERSION="0"/>
+  <contact_tel_detail ID="1" CONTACT_ID="1" TEL_TYPE="Mobile" TEL_NUMBER="222222" VERSION="0"/>
+  <contact_tel_detail ID="2" CONTACT_ID="1" TEL_TYPE="Home" TEL_NUMBER="1111111" VERSION="0"/>
+  <media id_media="1" type="0" name="First media" numScenes="0" id_serialnumber="0" version="0"/>
+  <media id_media="2" type="0" name="First media" numScenes="0" id_serialnumber="0" version="0"/>
+  <media id_media="3" type="0" name="First media" numScenes="0" id_serialnumber="0" version="0"/>
+  <media id_media="4" type="0" name="First media" numScenes="0" id_serialnumber="0" version="0"/>
+  <media id_media="5" type="0" name="First media" numScenes="0" id_serialnumber="0" version="0"/>
+  <notes/>
+  <property id_property="1" id_scene="1" fileName="fred" fileCreateDate="2013-02-26 00:00:00.0" fileExtension="ext" fullFilename="fredrick" filesize="0" version="0"/>
+  <property id_property="2" id_scene="3" fileName="fred" fileCreateDate="2013-02-26 00:00:00.0" fileExtension="ext" fullFilename="fredrick" filesize="0" version="0"/>
+  <property id_property="3" id_scene="5" fileName="fred" fileCreateDate="2013-02-26 00:00:00.0" fileExtension="ext" fullFilename="fredrick" filesize="0" version="0"/>
+  <property id_property="4" id_scene="7" fileName="fred" fileCreateDate="2013-02-26 00:00:00.0" fileExtension="ext" fullFilename="fredrick" filesize="0" version="0"/>
+  <property id_property="5" id_scene="9" fileName="fred" fileCreateDate="2013-02-26 00:00:00.0" fileExtension="ext" fullFilename="fredrick" filesize="0" version="0"/>
+  <scene id_scene="1" id_media="1" sceneNumber="122" version="0"/>
+  <scene id_scene="2" id_media="1" sceneNumber="123" version="0"/>
+  <scene id_scene="3" id_media="2" sceneNumber="122" version="0"/>
+  <scene id_scene="4" id_media="2" sceneNumber="123" version="0"/>
+  <scene id_scene="5" id_media="3" sceneNumber="122" version="0"/>
+  <scene id_scene="6" id_media="3" sceneNumber="123" version="0"/>
+  <scene id_scene="7" id_media="4" sceneNumber="122" version="0"/>
+  <scene id_scene="8" id_media="4" sceneNumber="123" version="0"/>
+  <scene id_scene="9" id_media="5" sceneNumber="122" version="0"/>
+  <scene id_scene="10" id_media="5" sceneNumber="123" version="0"/>
+</dataset>
