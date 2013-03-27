@@ -24,6 +24,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.util.UrlPathHelper;
 
+import com.vidlib.service.SceneService;
+
 /**
  * Handles requests for the application home page.
  */
@@ -32,6 +34,9 @@ public class HomeController {
 
 	//@Autowired
 	//private MediaDAO dao;
+	
+	@Autowired
+	SceneService sceneService;
 	
 	@Autowired
 	private FileStore fileStore;
