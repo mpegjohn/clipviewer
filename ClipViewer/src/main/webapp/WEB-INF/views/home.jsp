@@ -150,7 +150,6 @@ function mycarousel_create_table(url, time)
 // From http://jquery.10927.n7.nabble.com/multiple-dynamic-jcarousel-instances-td114488.html
 
 
-<<<<<<< Updated upstream
 $(document).ready(function(){ // MAKE CAROUSELS 
     
 	setup_carousels();
@@ -164,17 +163,6 @@ $(document).ready(function(){ // MAKE CAROUSELS
         $("#carouselList").append('<li> <div id="mycarousel_1" class="dynamiccarousel jcarousel-skin-tango"> <ul></ul></div></li>');
         setup_carousels();
     });
-=======
-jQuery(document).ready(function(){ // MAKE CAROUSELS 
-	jQuery('.dynamiccarousel').each(function(){ 
-		jQuery(this).jcarousel({ 
-                    itemLoadCallback: mycarousel_itemLoadCallback, 
-                    initCallback: initiate_carousel, 
-                    carouselid: this.id, //important!
-                    
-            }); 
-    }); 
->>>>>>> Stashed changes
 });
 
 function setup_carousels()
