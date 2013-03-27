@@ -30,8 +30,8 @@ import org.springframework.web.util.UrlPathHelper;
 @Controller
 public class HomeController {
 
-	@Autowired
-	private MediaDAO dao;
+	//@Autowired
+	//private MediaDAO dao;
 	
 	@Autowired
 	private FileStore fileStore;
@@ -127,7 +127,7 @@ public class HomeController {
 		logger.info("Welcome home! The client locale is {}.", locale);
 
 		
-		String name = dao.findFirstMediaName();
+		//String name = dao.findFirstMediaName();
 		
 		int [] scene_id = new int[3];
 		
