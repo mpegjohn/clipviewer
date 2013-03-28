@@ -131,6 +131,7 @@ public class HomeController {
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 
+		sceneService.find(1L);
 		
 		//String name = dao.findFirstMediaName();
 		
