@@ -165,6 +165,26 @@ $(document).ready(function(){ // MAKE CAROUSELS
     });
 });
 
+function get_media(id)
+{
+	id = 1;
+    jQuery.getJSON('<c:url value="/media/"/>' + id,
+    		{page: 1,
+        size: 20
+        },
+        function(data) {
+        	//console.log('Testing console');
+            show_carousels(data);
+        }
+      );	
+}
+
+function show_carousels(data)
+{
+
+
+}
+
 function setup_carousels()
 {
 	$('.dynamiccarousel').each(function(){ 
