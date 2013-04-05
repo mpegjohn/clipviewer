@@ -14,9 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.util.UrlPathHelper;
 
+import com.vidlib.domain.Scene;
 import com.vidlib.service.SceneService;
 
 /**
@@ -44,9 +48,34 @@ public class HomeController {
 	@Autowired
 	private WebApplicationContext context;
 
+	private Page currentCarouselPage;
+	
 	private static final Logger logger = LoggerFactory
 			.getLogger(HomeController.class);
-
+	
+	@RequestMapping(value = "/media/{id}", method = (RequestMethod.GET), produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody
+	CarouselPanePage getCrouselPage(@PathVariable("id") String mediaId, @RequestParam int page, @RequestParam int size)
+	{
+		
+		long id = Long.parseLong(mediaId);
+		
+		PageRequest pageRequest = new PageRequest(page, size);
+		
+		this.currentCarouselPage = sceneService.FindByMediaIdPageable(id, pageRequest);
+		
+		CarouselPanePage carouselPane = new CarouselPanePage();
+		
+		for(int i = 0; i< this.currentCarouselPage.getSize(); i++)
+		{
+			Scene scene = (Scene)this.currentCarouselPage.getContent().get(i);
+			carouselPane.addSceneId(scene.getIdScene());
+		}
+		carouselPane.numPages = this.currentCarouselPage.getTotalPages();
+		return carouselPane;
+	}
+	
+	
 	@RequestMapping(value = "/thumbnails", method = (RequestMethod.GET), produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody
 	ImageItemList listJSON(@RequestParam int first, @RequestParam int last, @RequestParam String id) {

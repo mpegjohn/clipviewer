@@ -160,14 +160,13 @@ $(document).ready(function(){ // MAKE CAROUSELS
     
     $("#add_button").click(function(){
         $("#imageList").append('<ul id="carouselList"></ul>');
-        $("#carouselList").append('<li> <div id="mycarousel_1" class="dynamiccarousel jcarousel-skin-tango"> <ul></ul></div></li>');
+		get_media(1);
         setup_carousels();
     });
 });
 
 function get_media(id)
 {
-	id = 1;
     jQuery.getJSON('<c:url value="/media/"/>' + id,
     		{page: 1,
         size: 20
@@ -181,6 +180,8 @@ function get_media(id)
 
 function show_carousels(data)
 {
+	
+    $("#carouselList").append('<li> <div id="mycarousel_1" class="dynamiccarousel jcarousel-skin-tango"> <ul></ul></div></li>');
 
 
 }

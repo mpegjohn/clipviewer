@@ -5,25 +5,25 @@ import java.util.List;
 
 public class CarouselPanePage {
 
-	List<Integer> sceneIds;
+	List<Long> sceneIds;
 	
 	int numPages;
 	
 	public CarouselPanePage() {
-		this.sceneIds = new ArrayList<Integer>();
+		this.sceneIds = new ArrayList<Long>();
 	}
 
-	public List<Integer> getSceneIds() {
+	public List<Long> getSceneIds() {
 		return sceneIds;
 	}
 
-	public void setSceneIds(List<Integer> sceneIds) {
+	public void setSceneIds(List<Long> sceneIds) {
 		this.sceneIds = sceneIds;
 	}
 	
-	public void addSceneId(int id)
+	public void addSceneId(Long id)
 	{
-		this.sceneIds.add((Integer)id);
+		this.sceneIds.add(id);
 	}
 
 	public int getNumPages() {
