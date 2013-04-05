@@ -48,7 +48,7 @@ public class HomeController {
 	@Autowired
 	private WebApplicationContext context;
 
-	private Page currentCarouselPage;
+	private Page<Scene> currentCarouselPage;
 	
 	private static final Logger logger = LoggerFactory
 			.getLogger(HomeController.class);
@@ -60,15 +60,16 @@ public class HomeController {
 		
 		long id = Long.parseLong(mediaId);
 		
+		page = 0;
 		PageRequest pageRequest = new PageRequest(page, size);
 		
 		this.currentCarouselPage = sceneService.FindByMediaIdPageable(id, pageRequest);
 		
 		CarouselPanePage carouselPane = new CarouselPanePage();
 		
-		for(int i = 0; i< this.currentCarouselPage.getSize(); i++)
+		for(int i = 0; i< this.currentCarouselPage.getNumberOfElements(); i++)
 		{
-			Scene scene = (Scene)this.currentCarouselPage.getContent().get(i);
+			Scene scene = this.currentCarouselPage.getContent().get(i);
 			carouselPane.addSceneId(scene.getIdScene());
 		}
 		carouselPane.numPages = this.currentCarouselPage.getTotalPages();
