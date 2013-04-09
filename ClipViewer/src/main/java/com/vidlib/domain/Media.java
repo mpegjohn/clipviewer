@@ -139,8 +139,8 @@ public class Media implements Serializable {
 	private List<Scene> scenes = new ArrayList<Scene>();
 	
 	@OneToMany(mappedBy = "media", cascade=CascadeType.ALL,
-			orphanRemoval=true)
-	@LazyCollection(LazyCollectionOption.FALSE)
+			orphanRemoval=true, fetch=FetchType.LAZY)
+	//@LazyCollection(LazyCollectionOption.TRUE)
 	public List<Scene> getScenes() {
 		return this.scenes;
 	}

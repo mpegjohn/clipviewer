@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 
 @Entity
@@ -25,7 +26,9 @@ public class Thumbnail implements Serializable
 	private String imageTime;
 	private int imageSize;
 	private int imageOrderNumber;
+	private String path;
 	
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id_thumbnail")
@@ -51,6 +54,14 @@ public class Thumbnail implements Serializable
 	}
 	public void setImage(String image) {
 		this.image = image;
+	}
+	
+	@Transient
+	public String getPath() {
+		return path;
+	}
+	public void setPath(String path) {
+		this.path = path;
 	}
 	
 	@Column(name = "imageTime")

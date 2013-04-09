@@ -27,7 +27,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.util.UrlPathHelper;
 
+import com.vidlib.domain.Media;
 import com.vidlib.domain.Scene;
+import com.vidlib.service.MediaService;
 import com.vidlib.service.SceneService;
 
 /**
@@ -73,18 +75,33 @@ public class HomeController {
 			carouselPane.addSceneId(scene.getIdScene());
 		}
 		carouselPane.numPages = this.currentCarouselPage.getTotalPages();
+		
 		return carouselPane;
 	}
 	
 	
 	@RequestMapping(value = "/thumbnails", method = (RequestMethod.GET), produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody
-	ImageItemList listJSON(@RequestParam int first, @RequestParam int last, @RequestParam String id) {
+	ImageItemList listJSON(@RequestParam int first, @RequestParam int last, @RequestParam String idin) {
 
 		logger.info("Getting thumbnails");
-		logger.info("First:" + first + " last:" + last + " id:" + id);
+		logger.info("First:" + first + " last:" + last + " id:" + idin);
 
-
+		long id = Long.parseLong(idin);
+		
+		for(int i = 0; i< this.currentCarouselPage.getNumberOfElements(); i++)
+		{
+			Scene scene = this.currentCarouselPage.getContent().get(i);
+			if(scene.getIdScene() == id)
+			{
+				Media media = scene.getMedia();
+				Date importDate = media.getImportDate();
+				
+				
+			}
+		}
+		
+		
 		List<String> fileNames = fileStore.GetThumbnailsUrls(1, 1, new Date());
 
 		ImageItemList theList = new ImageItemList();
