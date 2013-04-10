@@ -8,14 +8,14 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.vidlib.domain.Scene;
+import com.vidlib.domain.Thumbnail;
 
 @Component
 public class FileStoreServiceImpl implements FileStoreService {
 
 	@Override
-	public Scene GetThumbnailsUrls(Scene scene) {
+	public Scene AddThumbnailsUrls(Scene scene) {
 
-		Date date; // your date
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(scene.getMedia().getImportDate());
 		int year = cal.get(Calendar.YEAR);
@@ -28,13 +28,14 @@ public class FileStoreServiceImpl implements FileStoreService {
 		
 		String path = String.format("/%d/%d/%d/media_%d/media_%d_%d", year, month, day,scene.getMedia().getId_media(),scene.getMedia().getId_media(),index);
 
-		ArrayList<String> fileNames = new ArrayList<String>();
-
-		for (int i = 1; i < 22; i++) {
-			fileNames.add("image[" + i + "].jpg");
+		List<Thumbnail> thumbs = scene.getThumbnails();
+		
+		for(Thumbnail thumb : thumbs)
+		{
+			thumb.setPath(path);
 		}
 
-		return fileNames;
+		return scene;
 	}
 
 }

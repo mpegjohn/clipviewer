@@ -7,5 +7,5 @@ import com.vidlib.domain.Scene;
 
 public interface FileStoreService {
 	
-	public Scene GetThumbnailsUrls(Scene scene);
+	public Scene AddThumbnailsUrls(Scene scene);
 }
