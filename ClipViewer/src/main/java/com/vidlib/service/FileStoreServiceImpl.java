@@ -1,4 +1,4 @@
-package com.vidlib.clipviewer;
+package com.vidlib.service;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import com.vidlib.domain.Scene;
 
 @Component
-public class TestFileStore implements FileStore {
+public class FileStoreServiceImpl implements FileStoreService {
 
 	@Override
 	public Scene GetThumbnailsUrls(Scene scene) {

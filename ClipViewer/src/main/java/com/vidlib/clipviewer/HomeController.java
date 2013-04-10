@@ -29,6 +29,7 @@ import org.springframework.web.util.UrlPathHelper;
 
 import com.vidlib.domain.Media;
 import com.vidlib.domain.Scene;
+import com.vidlib.service.FileStoreService;
 import com.vidlib.service.MediaService;
 import com.vidlib.service.SceneService;
 
@@ -45,7 +46,7 @@ public class HomeController {
 	SceneService sceneService;
 	
 	@Autowired
-	private FileStore fileStore;
+	private FileStoreService fileStore;
 
 	@Autowired
 	private WebApplicationContext context;
