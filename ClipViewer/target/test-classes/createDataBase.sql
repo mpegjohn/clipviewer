@@ -109,8 +109,7 @@ CREATE TABLE `scene` (
   `sceneNumber` int(10) unsigned DEFAULT NULL,
   `version` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_scene`),
-  KEY `id_media` (`id_media`),
-  CONSTRAINT `id_media` FOREIGN KEY (`id_media`) REFERENCES `media` (`id_media`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `id_media` (`id_media`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
