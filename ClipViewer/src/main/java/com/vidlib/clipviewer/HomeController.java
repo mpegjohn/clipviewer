@@ -29,6 +29,7 @@ import org.springframework.web.util.UrlPathHelper;
 
 import com.vidlib.domain.Media;
 import com.vidlib.domain.Scene;
+import com.vidlib.domain.Thumbnail;
 import com.vidlib.service.FileStoreService;
 import com.vidlib.service.MediaService;
 import com.vidlib.service.SceneService;
@@ -70,9 +71,11 @@ public class HomeController {
 		
 		CarouselPanePage carouselPane = new CarouselPanePage();
 		
-		for(int i = 0; i< this.currentCarouselPage.getNumberOfElements(); i++)
+		//for(int i = 0; i< this.currentCarouselPage.getNumberOfElements(); i++)
+		for(Scene scene : this.currentCarouselPage)
 		{
-			Scene scene = this.currentCarouselPage.getContent().get(i);
+			//Scene scene = this.currentCarouselPage.getContent().get(i);
+			scene = fileStore.AddThumbnailsUrls(scene);
 			carouselPane.addSceneId(scene.getIdScene());
 		}
 		carouselPane.numPages = this.currentCarouselPage.getTotalPages();
@@ -83,47 +86,21 @@ public class HomeController {
 	
 	@RequestMapping(value = "/thumbnails", method = (RequestMethod.GET), produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody
-	ImageItemList listJSON(@RequestParam int first, @RequestParam int last, @RequestParam String idin) {
+	ThumbnailItemList listJSON(@RequestParam int first, @RequestParam int last, @RequestParam String idin) {
 
 		logger.info("Getting thumbnails");
 		logger.info("First:" + first + " last:" + last + " id:" + idin);
 
 		long id = Long.parseLong(idin);
-		
-		for(int i = 0; i< this.currentCarouselPage.getNumberOfElements(); i++)
-		{
-			Scene scene = this.currentCarouselPage.getContent().get(i);
-			if(scene.getIdScene() == id)
-			{
-				Media media = scene.getMedia();
-				Date importDate = media.getImportDate();
-				
-				
-			}
-		}
-		
-		
-		List<String> fileNames = fileStore.GetThumbnailsUrls(1, 1, new Date());
 
-		ImageItemList theList = new ImageItemList();
-
-		ArrayList<ImageItem> imageItems = new ArrayList<ImageItem>();
-
-		List<String> slice = fileNames.subList(first-1, last);
+		List<Thumbnail> thumbs = getThumbnailsFromPage(id);
 		
+		List<Thumbnail> slice = thumbs.subList(first-1, last);
+
+		ThumbnailItemList theList = new ThumbnailItemList();
 		
-		for (int i = 0; i < slice.size(); i++) {
-			ImageItem item = new ImageItem();
-
-			logger.info("Adding-" + slice.get(i));
-			
-			item.setUrl("/" + slice.get(i));
-			item.setTimeStamp(slice.get(i));
-			imageItems.add(item);
-		}
-
-		theList.setImageList(imageItems);
-		theList.setTotal(fileNames.size());
+		theList.setThumbnailList(slice);
+		theList.setTotal(thumbs.size());
 
 		return theList;
 	}
@@ -193,4 +170,15 @@ public class HomeController {
 		return "home";
 	}
 
+	private List<Thumbnail> getThumbnailsFromPage(long sceneId)
+	{
+		for(Scene scene : currentCarouselPage)
+		{
+			if(scene.getIdScene() == sceneId)
+			{
+				return scene.getThumbnails();
+			}
+		}
+		return null;
+	}
 }
