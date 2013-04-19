@@ -180,10 +180,11 @@ function get_media(id)
 
 function show_carousels(data)
 {
-	
-    $("#carouselList").append('<li> <div id="mycarousel_1" class="dynamiccarousel jcarousel-skin-tango"> <ul></ul></div></li>');
-
-
+	for(var i =0; i< data.sceneIds.length(); i++)
+	{
+		var sceneId = data.sceneIds[i];
+    	$("#carouselList").append('<li> <div id="mycarousel_' + sceneId + '" class="dynamiccarousel jcarousel-skin-tango"> <ul></ul></div></li>');
+	}
 }
 
 function setup_carousels()

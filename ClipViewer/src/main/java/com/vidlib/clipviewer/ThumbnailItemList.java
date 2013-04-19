@@ -6,8 +6,8 @@ import com.vidlib.domain.Thumbnail;
 
 /***
  * 
- * @author john
- * An object containing a list of image items, and a total.
+ * @author John
+ * An object containing a list of thumbnails, and a total.
  *
  */
 public class ThumbnailItemList {
