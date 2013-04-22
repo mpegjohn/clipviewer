@@ -63,6 +63,8 @@ table {
 	width: 800px;
 	height: 600px;
 	background-color: #E1E1E1;
+	overflow: hidden;
+	overflow-y: scroll;
 }
 
 #carouselList {
@@ -161,7 +163,10 @@ $(document).ready(function(){ // MAKE CAROUSELS
     $("#add_button").click(function(){
         $("#imageList").append('<ul id="carouselList"></ul>');
 		get_media(1);
-        setup_carousels();
+//		$("#imageList").append('<ul id="carouselList"></ul>');
+//        $("#carouselList").append('<li> <div id="mycarousel_1" class="dynamiccarousel jcarousel-skin-tango"> <ul></ul></div></li>');
+
+        //setup_carousels();
     });
 });
 
@@ -172,15 +177,17 @@ function get_media(id)
         size: 20
         },
         function(data) {
+          //  $("#carouselList").append('<li> <div id="mycarousel_1" class="dynamiccarousel jcarousel-skin-tango"> <ul></ul></div></li>');
         	//console.log('Testing console');
             show_carousels(data);
+            setup_carousels();
         }
       );	
 }
 
 function show_carousels(data)
 {
-	for(var i =0; i< data.sceneIds.length(); i++)
+	for(var i =0; i< data.sceneIds.length; i++)
 	{
 		var sceneId = data.sceneIds[i];
     	$("#carouselList").append('<li> <div id="mycarousel_' + sceneId + '" class="dynamiccarousel jcarousel-skin-tango"> <ul></ul></div></li>');

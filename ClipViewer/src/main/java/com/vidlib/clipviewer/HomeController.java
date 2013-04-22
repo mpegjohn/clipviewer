@@ -112,7 +112,7 @@ public class HomeController {
 
 		String filename = pathInfo.replaceFirst("/.*/", "");
 
-		File file = new File("/home/john/Dropbox/temp_jpgs/", filename);
+		File file = new File("/nas/newArchive", filename);
 
 		response.setContentType(context.getServletContext().getMimeType(
 				file.getName()));

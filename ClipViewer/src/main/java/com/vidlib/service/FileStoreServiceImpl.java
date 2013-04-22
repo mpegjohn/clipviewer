@@ -29,7 +29,7 @@ public class FileStoreServiceImpl implements FileStoreService {
 		
 		String index = String.format("%05d", number);
 		
-		String path = String.format("/%d/%d/%d/media_%d/media_%d_%s", year, month, day,scene.getMedia().getId_media(),scene.getMedia().getId_media(),index);
+		String path = String.format("thumbnails/%d/%d/%d/media_%d/media_%d_%s", year, month, day,scene.getMedia().getId_media(),scene.getMedia().getId_media(),index);
 
 		List<Thumbnail> thumbs = scene.getThumbnails();
 		Pattern pattern = Pattern.compile("(image\\[\\d+\\].jpg)");
