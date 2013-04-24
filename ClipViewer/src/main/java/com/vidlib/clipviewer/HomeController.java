@@ -59,15 +59,12 @@ public class HomeController {
 	
 	@RequestMapping(value = "/media/{id}", method = (RequestMethod.GET), produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody
-	CarouselPanePage getCrouselPage(@PathVariable("id") String mediaId, @RequestParam int page, @RequestParam int size)
+	CarouselPanePage getCrouselPage(@PathVariable("id") long mediaId, @RequestParam int page, @RequestParam int size)
 	{
-		
-		long id = Long.parseLong(mediaId);
-		
 		page = 0;
 		PageRequest pageRequest = new PageRequest(page, size);
 		
-		this.currentCarouselPage = sceneService.FindByMediaIdPageable(id, pageRequest);
+		this.currentCarouselPage = sceneService.FindByMediaIdPageable(mediaId, pageRequest);
 		
 		CarouselPanePage carouselPane = new CarouselPanePage();
 		
@@ -86,12 +83,12 @@ public class HomeController {
 	
 	@RequestMapping(value = "/thumbnails", method = (RequestMethod.GET), produces = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody
-	ThumbnailItemList listJSON(@RequestParam int first, @RequestParam int last, @RequestParam String idin) {
+	ThumbnailItemList listJSON(@RequestParam int first, @RequestParam int last, @RequestParam long id) {
 
 		logger.info("Getting thumbnails");
-		logger.info("First:" + first + " last:" + last + " id:" + idin);
+		logger.info("First:" + first + " last:" + last + " id:" + id);
 
-		long id = Long.parseLong(idin);
+		//long id = idin;
 
 		List<Thumbnail> thumbs = getThumbnailsFromPage(id);
 		
@@ -167,6 +164,11 @@ public class HomeController {
 		scene_id[2] = 3;
 		
 		model.addAttribute("scene_id",scene_id );
+		
+		PageRequest pageRequest = new PageRequest(0, 20);
+		
+		this.currentCarouselPage = sceneService.FindByMediaIdPageable(1, pageRequest);
+		
 		return "home";
 	}
 
