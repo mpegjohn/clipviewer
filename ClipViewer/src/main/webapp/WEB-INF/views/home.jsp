@@ -115,10 +115,10 @@ function mycarousel_itemAddCallback(carousel, first, json)
 
     	carousel.size(parseInt(json.total));
 
-    for(var i = 0; i < json.imageList.length; i++)
+    for(var i = 0; i < json.thumbnailList.length; i++)
     {
-    	//console.log(json.imageList[i].url);
-    	var table = mycarousel_create_table(json.imageList[i].url, json.imageList[i].timeStamp);
+    	var image_file = json.thumbnailList[i].image;
+    	var table = mycarousel_create_table(json.thumbnailList[i].path + "/" + image_file, json.thumbnailList[i].imageTime);
     	
     	carousel.add(i+first,table);
     }
@@ -129,7 +129,7 @@ function mycarousel_itemAddCallback(carousel, first, json)
  */
 function mycarousel_create_table(url, time)
 {
-	var base_url = '<s:url value="/images"/>';
+	var base_url = '<s:url value="/images/"/>';
 	
 	var img_url = '<img src="' + base_url + url + '" />';
 	

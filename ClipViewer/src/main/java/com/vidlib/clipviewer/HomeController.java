@@ -92,6 +92,11 @@ public class HomeController {
 
 		List<Thumbnail> thumbs = getThumbnailsFromPage(id);
 		
+		if(last > thumbs.size()-1)
+		{
+			last = thumbs.size()-1;
+		}
+		
 		List<Thumbnail> slice = thumbs.subList(first-1, last);
 
 		ThumbnailItemList theList = new ThumbnailItemList();

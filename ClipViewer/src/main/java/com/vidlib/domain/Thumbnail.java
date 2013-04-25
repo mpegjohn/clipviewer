@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 
 @Entity
 @Table (name = "thumbnail")
@@ -32,6 +34,7 @@ public class Thumbnail implements Serializable
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 	@Column(name = "id_thumbnail")
+	@JsonIgnore
 	public long getId_thumbnail() {
 		return id_thumbnail;
 	}
@@ -41,6 +44,7 @@ public class Thumbnail implements Serializable
 	
 	@ManyToOne
 	@JoinColumn(name = "id_scene")
+	@JsonIgnore
 	public Scene getScene() {
 		return scene;
 	}
@@ -73,6 +77,7 @@ public class Thumbnail implements Serializable
 	}
 	
 	@Column(name = "imageSize")
+	@JsonIgnore
 	public int getImageSize() {
 		return imageSize;
 	}
@@ -81,6 +86,7 @@ public class Thumbnail implements Serializable
 	}
 	
 	@Column(name = "imageOrderNumber")
+	@JsonIgnore
 	public int getImageOrderNumber() {
 		return imageOrderNumber;
 	}
