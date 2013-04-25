@@ -107,12 +107,12 @@ public class HomeController {
 		return theList;
 	}
 
-	@RequestMapping(value = "/images/*", method = RequestMethod.GET)
+	@RequestMapping(value = "/images/**", method = RequestMethod.GET)
 	public void getFileFromStore(HttpServletRequest request, HttpServletResponse response) {
 		UrlPathHelper helper = new UrlPathHelper();
 		String pathInfo = helper.getServletPath(request);
 
-		String filename = pathInfo.replaceFirst("/.*/", "");
+		String filename = pathInfo.replaceFirst("/images/", "");
 
 		File file = new File("/nas/newArchive", filename);
 
