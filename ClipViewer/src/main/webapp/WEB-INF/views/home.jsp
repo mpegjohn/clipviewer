@@ -162,7 +162,7 @@ $(document).ready(function(){ // MAKE CAROUSELS
     
     $("#add_button").click(function(){
         $("#imageList").append('<ul id="carouselList"></ul>');
-		get_media(1);
+		get_media(3);
 //		$("#imageList").append('<ul id="carouselList"></ul>');
 //        $("#carouselList").append('<li> <div id="mycarousel_1" class="dynamiccarousel jcarousel-skin-tango"> <ul></ul></div></li>');
 
