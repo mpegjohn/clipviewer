@@ -27,6 +27,27 @@
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/jcarousel/skins/tango/skin.css" />" />
 
+<!-- 
+	jpaginator
+ -->
+<script type="text/javascript"
+	src="<c:url value="/resources/jpaginator/jPaginator.js" />"></script>
+
+<!--
+  jpaginator stylesheet
+-->
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="/resources/jpaginator/jPaginator.css" />" />
+
+<link rel="stylesheet" type="text/css"
+	href="<c:url value="/resources/jpaginator/test1.css" />" />
+
+<!-- 
+	jquery-ui slider
+ -->
+<script type="text/javascript"
+	src="<c:url value="/resources/jquery-ui/jquery-ui-1.10.2.custom.js" />"></script>
+
 
 <style type="text/css">
 td,tr,img {
@@ -78,7 +99,6 @@ table {
 
 function mycarousel_itemLoadCallback(carousel, state)
 {
-	console.log(carousel);
     // Check if the requested items already exist
 
     if (carousel.has(carousel.first, carousel.last)) {
@@ -168,6 +188,18 @@ $(document).ready(function(){ // MAKE CAROUSELS
 
         //setup_carousels();
     });
+    
+    $("#test1").jPaginator({
+    	  nbPages:54,
+    	  overBtnLeft:'#test1_o_left',
+    	  overBtnRight:'#test1_o_right',
+    	  maxBtnLeft:'#test1_m_left',
+    	  maxBtnRight:'#test1_m_right',
+    	  onPageClicked: function(a,num) {
+    	      $("#page1").html("demo1 - page : "+num);
+    	  }
+    	});
+    
 });
 
 function get_media(id)
@@ -189,6 +221,7 @@ function show_carousels(data)
 {
 	for(var i =0; i< data.sceneIds.length; i++)
 	{
+
 		var sceneId = data.sceneIds[i];
     	$("#carouselList").append('<li> <div id="mycarousel_' + sceneId + '" class="dynamiccarousel jcarousel-skin-tango"> <ul></ul></div></li>');
 	}
@@ -238,5 +271,28 @@ function initiate_carousel(carousel,state){ // ON EACH INITIATION, ASSIGN AN ID 
 <p>
 <input type="button" id="clear_button" value="Clear"/><input type="button" id="add_button" value="Next"/>
 </p>
+ <p id="page1">demo1</p>
+<div id="test1"> 
+
+    <!-- optional left control buttons --> 
+    <nav id="test1_m_left"></nav><nav id="test1_o_left"></nav> 
+
+    <div class='paginator_p_wrap'> 
+        <div class='paginator_p_bloc'> 
+            <!--<a class='paginator_p'></a> // page number : dynamically added --> 
+        </div> 
+    </div> 
+
+    <!-- optional right control buttons --> 
+    <nav id="test1_o_right"></nav><nav id="test1_m_right"></nav> 
+
+
+    <!-- slider --> 
+    <div class='paginator_slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all'> 
+        <a class='ui-slider-handle ui-state-default ui-corner-all' href='#'></a> 
+    </div> 
+
+</div>
+
 </body>
 </html>
