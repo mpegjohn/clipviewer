@@ -31,6 +31,7 @@ import com.vidlib.domain.Media;
 import com.vidlib.domain.Scene;
 import com.vidlib.domain.Thumbnail;
 import com.vidlib.service.FileStoreService;
+import com.vidlib.service.MediaService;
 import com.vidlib.service.SceneService;
 import com.vidlib.service.jpa.MediaServicejpa;
 
@@ -39,12 +40,12 @@ import com.vidlib.service.jpa.MediaServicejpa;
  */
 @Controller
 public class HomeController {
-
-	//@Autowired
-	//private MediaDAO dao;
 	
 	@Autowired
 	SceneService sceneService;
+
+	@Autowired
+	MediaService mediaService;
 	
 	@Autowired
 	private FileStoreService fileStore;
@@ -158,21 +159,23 @@ public class HomeController {
 	public String home(Locale locale, Model model) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 
-		sceneService.find(1L);
+		List<Media> mediaList = mediaService.findAll();
+		
+		//sceneService.find(1L);
 		
 		//String name = dao.findFirstMediaName();
 		
-		int [] scene_id = new int[3];
+		//int [] scene_id = new int[3];
 		
-		scene_id[0] = 1;
-		scene_id[1] = 2;
-		scene_id[2] = 3;
+		//scene_id[0] = 1;
+		//scene_id[1] = 2;
+		//scene_id[2] = 3;
 		
-		model.addAttribute("scene_id",scene_id );
+		model.addAttribute("mediaList",mediaList );
 		
-		PageRequest pageRequest = new PageRequest(0, 20);
+		//PageRequest pageRequest = new PageRequest(0, 20);
 		
-		this.currentCarouselPage = sceneService.FindByMediaIdPageable(1, pageRequest);
+		//this.currentCarouselPage = sceneService.FindByMediaIdPageable(1, pageRequest);
 		
 		return "home";
 	}

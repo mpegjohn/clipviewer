@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -48,6 +49,7 @@ public class Media implements Serializable {
 	}
 	
 	@Column(name = "id_project")
+	@JsonIgnore
 	public Long getId_project() {
 		return id_project;
 	}
@@ -129,6 +131,7 @@ public class Media implements Serializable {
 	}
 	
 	@Column(name = "version")
+	@JsonIgnore
 	public int getVersion() {
 		return version;
 	}
@@ -141,6 +144,7 @@ public class Media implements Serializable {
 	@OneToMany(mappedBy = "media", cascade=CascadeType.ALL,
 			orphanRemoval=true, fetch=FetchType.LAZY)
 	//@LazyCollection(LazyCollectionOption.TRUE)
+	@JsonIgnore
 	public List<Scene> getScenes() {
 		return this.scenes;
 	}

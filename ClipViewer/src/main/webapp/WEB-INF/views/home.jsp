@@ -22,6 +22,7 @@
  -->
 <script type="text/javascript"
 	src="http://code.jquery.com/ui/1.10.2/jquery-ui.js">
+	
 </script>
 
 <!--
@@ -49,6 +50,10 @@
 
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/jpaginator/test1.css" />" />
+
+<link rel="stylesheet"
+	href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+
 
 <style type="text/css">
 td,tr,img {
@@ -94,217 +99,230 @@ table {
 	padding: 0;
 	margin: 0;
 }
+
+#media_list {
+	width: 350px;
+	float: left;
+}
+
+#wrap {
+	width: 1150;
+	margin: 0 auto;
+}
+
+#thumbnails {
+    float: right;
+    width: 800px;
+}
 </style>
 
 <script type="text/javascript">
+	function mycarousel_itemLoadCallback(carousel, state) {
+		// Check if the requested items already exist
 
-function mycarousel_itemLoadCallback(carousel, state)
-{
-    // Check if the requested items already exist
+		if (carousel.has(carousel.first, carousel.last)) {
+			return;
+		}
 
-    if (carousel.has(carousel.first, carousel.last)) {
-        return;
-    }
+		var first = carousel.first;
 
-    var first = carousel.first;
-    
-    for(var i = carousel.first; i <= carousel.last; i++)
-    {
-    	if(!carousel.has(i))
-    	{
-    		first = i;
-    		break;	
-    	}
-    }
-    
-    var last = carousel.last;
-    jQuery.getJSON('<c:url value="/thumbnails"/>',
-    		{first: first,
-        last: last,
-        id: carousel.carouselid.substring(11) // stripping out 'carousel' to get integer
-        },
-        function(data) {
-        	//console.log('Testing console');
-            mycarousel_itemAddCallback(carousel, first, data);
-        }
-      );    
-};
+		for ( var i = carousel.first; i <= carousel.last; i++) {
+			if (!carousel.has(i)) {
+				first = i;
+				break;
+			}
+		}
 
-function mycarousel_itemAddCallback(carousel, first, json)
-{
-    // Set the size of the carousel
+		var last = carousel.last;
+		jQuery.getJSON('<c:url value="/thumbnails"/>', {
+			first : first,
+			last : last,
+			id : carousel.carouselid.substring(11)
+		// stripping out 'carousel' to get integer
+		}, function(data) {
+			//console.log('Testing console');
+			mycarousel_itemAddCallback(carousel, first, data);
+		});
+	};
 
-    	carousel.size(parseInt(json.total));
+	function mycarousel_itemAddCallback(carousel, first, json) {
+		// Set the size of the carousel
 
-    for(var i = 0; i < json.thumbnailList.length; i++)
-    {
-    	var image_file = json.thumbnailList[i].image;
-    	var table = mycarousel_create_table(json.thumbnailList[i].path + "/" + image_file, json.thumbnailList[i].imageTime);
-    	
-    	carousel.add(i+first,table);
-    }
-};
+		carousel.size(parseInt(json.total));
 
-/**
- * Item html creation helper.
- */
-function mycarousel_create_table(url, time)
-{
-	var base_url = '<s:url value="/images/"/>';
-	
-	var img_url = '<img src="' + base_url + url + '" />';
-	
-	//console.log(img_url);
-	
-	var table = "<table>";
-	table += "<tbody>";
-	table += "<tr>";
-	table += '<td id="image_cell">' + img_url + '</td>';
-	table += "</tr>";
-	table += "<tr>";
-	table += '<td id="timestamp">' + time + '</td>';
-	table += "</tr>";
-	table += "</tbody>";
-	table += "</table>";
+		for ( var i = 0; i < json.thumbnailList.length; i++) {
+			var image_file = json.thumbnailList[i].image;
+			var table = mycarousel_create_table(json.thumbnailList[i].path
+					+ "/" + image_file, json.thumbnailList[i].imageTime);
 
-    return table;
-};
+			carousel.add(i + first, table);
+		}
+	};
 
-// From http://jquery.10927.n7.nabble.com/multiple-dynamic-jcarousel-instances-td114488.html
+	/**
+	 * Item html creation helper.
+	 */
+	function mycarousel_create_table(url, time) {
+		var base_url = '<s:url value="/images/"/>';
 
+		var img_url = '<img src="' + base_url + url + '" />';
 
-$(document).ready(function(){ // MAKE CAROUSELS 
-    
-	setup_carousels();
-	
-    $("#clear_button").click(function(){
-        $("#carouselList").remove();
-    });
-    
-    $("#add_button").click(function(){
-        $("#imageList").append('<ul id="carouselList"></ul>');
-		get_media(3, 1);
-//		$("#imageList").append('<ul id="carouselList"></ul>');
-//        $("#carouselList").append('<li> <div id="mycarousel_1" class="dynamiccarousel jcarousel-skin-tango"> <ul></ul></div></li>');
+		//console.log(img_url);
 
-        //setup_carousels();
-    });
-    
-    $("#test1").jPaginator({
-    	  nbPages:1,
-    	  selectedPage:1,
-    	  nbVisible:6,
-    	  overBtnLeft:'#test1_o_left',
-    	  overBtnRight:'#test1_o_right',
-    	  maxBtnLeft:'#test1_m_left',
-    	  maxBtnRight:'#test1_m_right',
-    	  onPageClicked: function(a,num) {
-    	      $("#page1").html("demo1 - page : "+num);
-    	      $("#carouselList").remove();
-    	      $("#imageList").append('<ul id="carouselList"></ul>');
-    	      get_media(3, num);
-    	  }
-    	});
-    
-});
+		var table = "<table>";
+		table += "<tbody>";
+		table += "<tr>";
+		table += '<td id="image_cell">' + img_url + '</td>';
+		table += "</tr>";
+		table += "<tr>";
+		table += '<td id="timestamp">' + time + '</td>';
+		table += "</tr>";
+		table += "</tbody>";
+		table += "</table>";
 
-// The total number of pages
-var num_pages;
+		return table;
+	};
 
-function get_media(id, page)
-{
-    jQuery.getJSON('<c:url value="/media/"/>' + id,
-    		{page: page,
-        size: 20
-        },
-        function(data) {
-          //  $("#carouselList").append('<li> <div id="mycarousel_1" class="dynamiccarousel jcarousel-skin-tango"> <ul></ul></div></li>');
-        	//console.log('Testing console');
-            show_carousels(data);
-            setup_carousels();
-        }
-      );	
-}
+	// From http://jquery.10927.n7.nabble.com/multiple-dynamic-jcarousel-instances-td114488.html
 
-function show_carousels(data)
-{
-	if(data.numPages != num_pages)
-	{
-		num_pages = data.numPages;
-		$("#test1").trigger("reset",{  
-	        //selectedPage:null, 
-	        nbVisible:6, 
-	        nbPages:num_pages//,
-	        //marginPx:8, 
-	        //speed:1 
-	    }); 
-	}
-	for(var i =0; i< data.sceneIds.length; i++)
-	{
+	$(document).ready(function() { // MAKE CAROUSELS 
 
-		var sceneId = data.sceneIds[i];
-    	$("#carouselList").append('<li> <div id="mycarousel_' + sceneId + '" class="dynamiccarousel jcarousel-skin-tango"> <ul></ul></div></li>');
-	}
-}
+		setup_carousels();
 
-function setup_carousels()
-{
-	$('.dynamiccarousel').each(function(){ 
-    	$(this).jcarousel({ 
-        	    itemLoadCallback: mycarousel_itemLoadCallback, 
-            	initCallback: initiate_carousel, 
-            	carouselid: this.id, //important!
-            	 itemFallbackDimension:100
-    	}); 
+		$("#test1").jPaginator({
+			nbPages : 1,
+			selectedPage : 1,
+			nbVisible : 6,
+			overBtnLeft : '#test1_o_left',
+			overBtnRight : '#test1_o_right',
+			maxBtnLeft : '#test1_m_left',
+			maxBtnRight : '#test1_m_right',
+			onPageClicked : function(a, num) {
+				$("#page1").html("demo1 - page : " + num);
+				$("#carouselList").remove();
+				$("#imageList").append('<ul id="carouselList"></ul>');
+				get_media(current_media_id, num);
+			}
+		});
+
+		$("#media_list").accordion();
+		
+		$(".media_select").click(function(){
+			current_media_id = this.id;
+			$("#carouselList").remove();
+			$("#imageList").append('<ul id="carouselList"></ul>');
+			get_media(current_media_id, 1);
+		});
+
 	});
-};
 
-function initiate_carousel(carousel,state){ // ON EACH INITIATION, ASSIGN AN ID TO THE CAROUSEL INSTANCE 
+	// The total number of pages
+	var num_pages;
+	var current_media_id;
 
-	if(state == 'init')
-	{
-		carousel.carouselid = this.carouselid;
+	function get_media(id, page) {
+		jQuery.getJSON('<c:url value="/media/"/>' + id, {
+			page : page,
+			size : 20
+		}, function(data) {
+			//  $("#carouselList").append('<li> <div id="mycarousel_1" class="dynamiccarousel jcarousel-skin-tango"> <ul></ul></div></li>');
+			//console.log('Testing console');
+			show_carousels(data);
+			setup_carousels();
+		});
 	}
-};
 
+	function show_carousels(data) {
+		if (data.numPages != num_pages) {
+			num_pages = data.numPages;
+			$("#test1").trigger("reset", {
+				//selectedPage:null, 
+				nbVisible : 6,
+				nbPages : num_pages
+			//,
+			//marginPx:8, 
+			//speed:1 
+			});
+		}
+		for ( var i = 0; i < data.sceneIds.length; i++) {
 
+			var sceneId = data.sceneIds[i];
+			$("#carouselList")
+					.append(
+							'<li> <div id="mycarousel_' + sceneId + '" class="dynamiccarousel jcarousel-skin-tango"> <ul></ul></div></li>');
+		}
+	}
 
+	function setup_carousels() {
+		$('.dynamiccarousel').each(function() {
+			$(this).jcarousel({
+				itemLoadCallback : mycarousel_itemLoadCallback,
+				initCallback : initiate_carousel,
+				carouselid : this.id, //important!
+				itemFallbackDimension : 100
+			});
+		});
+	};
+
+	function initiate_carousel(carousel, state) { // ON EACH INITIATION, ASSIGN AN ID TO THE CAROUSEL INSTANCE 
+
+		if (state == 'init') {
+			carousel.carouselid = this.carouselid;
+		}
+	};
 </script>
 
 </head>
 <body>
 
-<div id="wrap">
-	<div id="imageList">
-		<ul id="carouselList">
-		</ul>
+	<div id="wrap">
+		<div id="media_list">
+
+			<c:forEach var="media_item" items="${mediaList}">
+				<h3>${media_item.name}</h3>
+				<div>
+					<p>Import date : ${media_item.importDate}</p>
+					<p>Comment: ${media_item.comment}</p>
+					<p>Number of scenes: ${media_item.numScenes}</p>
+					<input type="button" id="${media_item.id_media}" class="media_select" value="Show"/>
+				</div>
+
+			</c:forEach>
+
+		</div>
+		<div id="thumbnails">
+			<div id="imageList"></div>
+
+			<p id="page1">demo1</p>
+			<div id="test1">
+
+				<!-- optional left control buttons -->
+				<nav id="test1_m_left"></nav>
+				<nav id="test1_o_left"></nav>
+
+				<div class='paginator_p_wrap'>
+					<div class='paginator_p_bloc'>
+						<!--<a class='paginator_p'></a> // page number : dynamically added -->
+					</div>
+				</div>
+
+				<!-- optional right control buttons -->
+				<nav id="test1_o_right"></nav>
+				<nav id="test1_m_right"></nav>
+
+
+				<!-- slider -->
+				<div
+					class='paginator_slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all'>
+					<a class='ui-slider-handle ui-state-default ui-corner-all' href='#'></a>
+				</div>
+
+			</div>
+		</div>
+
 	</div>
-</div>
-<p>
-<input type="button" id="clear_button" value="Clear"/><input type="button" id="add_button" value="Next"/>
-</p>
- <p id="page1">demo1</p>
-<div id="test1"> 
-
-    <!-- optional left control buttons --> 
-    <nav id="test1_m_left"></nav><nav id="test1_o_left"></nav> 
-
-    <div class='paginator_p_wrap'> 
-        <div class='paginator_p_bloc'> 
-            <!--<a class='paginator_p'></a> // page number : dynamically added --> 
-        </div> 
-    </div> 
-
-    <!-- optional right control buttons --> 
-    <nav id="test1_o_right"></nav><nav id="test1_m_right"></nav> 
 
 
-    <!-- slider --> 
-    <div class='paginator_slider ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all'> 
-        <a class='ui-slider-handle ui-state-default ui-corner-all' href='#'></a> 
-    </div> 
-
-</div>
 
 </body>
 </html>
