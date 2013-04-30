@@ -31,8 +31,8 @@ import com.vidlib.domain.Media;
 import com.vidlib.domain.Scene;
 import com.vidlib.domain.Thumbnail;
 import com.vidlib.service.FileStoreService;
-import com.vidlib.service.MediaService;
 import com.vidlib.service.SceneService;
+import com.vidlib.service.jpa.MediaServicejpa;
 
 /**
  * Handles requests for the application home page.

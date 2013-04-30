@@ -16,6 +16,14 @@
 	src="http://code.jquery.com/jquery-1.8.0.min.js">
 	
 </script>
+
+<!-- 
+	jQuery-ui
+ -->
+<script type="text/javascript"
+	src="http://code.jquery.com/ui/1.10.2/jquery-ui.js">
+</script>
+
 <!--
   jCarousel library
 -->
@@ -41,13 +49,6 @@
 
 <link rel="stylesheet" type="text/css"
 	href="<c:url value="/resources/jpaginator/test1.css" />" />
-
-<!-- 
-	jquery-ui slider
- -->
-<script type="text/javascript"
-	src="<c:url value="/resources/jquery-ui/jquery-ui-1.10.2.custom.js" />"></script>
-
 
 <style type="text/css">
 td,tr,img {
@@ -276,15 +277,6 @@ function initiate_carousel(carousel,state){ // ON EACH INITIATION, ASSIGN AN ID 
 <div id="wrap">
 	<div id="imageList">
 		<ul id="carouselList">
-			<c:forEach var="carousel_item" items="${scene_id}">
-				<li>
-					<div id="mycarousel_${carousel_item}" class="dynamiccarousel jcarousel-skin-tango">
-    						<ul>
-      						<!-- The content will be dynamically loaded in here -->
-						</ul>
-					</div>
-				</li>
-			</c:forEach>
 		</ul>
 	</div>
 </div>

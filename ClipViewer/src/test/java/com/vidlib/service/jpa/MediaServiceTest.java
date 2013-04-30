@@ -22,12 +22,11 @@ import com.vidlib.domain.Media;
 import com.vidlib.domain.Property;
 import com.vidlib.domain.Scene;
 import com.vidlib.domain.Thumbnail;
-import com.vidlib.service.MediaService;
 
 public class MediaServiceTest extends AbstractServiceTest{
 
 	@Autowired
-	MediaService mediaService;
+	MediaServicejpa mediaService;
 	
 	@Test
 	@DatabaseSetup("empty_media.xml")
