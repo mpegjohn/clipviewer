@@ -61,7 +61,7 @@ public class HomeController {
 	public @ResponseBody
 	CarouselPanePage getCrouselPage(@PathVariable("id") long mediaId, @RequestParam int page, @RequestParam int size)
 	{
-		page = 0;
+		page = page -1;
 		PageRequest pageRequest = new PageRequest(page, size);
 		
 		this.currentCarouselPage = sceneService.FindByMediaIdPageable(mediaId, pageRequest);

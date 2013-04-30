@@ -182,7 +182,7 @@ $(document).ready(function(){ // MAKE CAROUSELS
     
     $("#add_button").click(function(){
         $("#imageList").append('<ul id="carouselList"></ul>');
-		get_media(3);
+		get_media(3, 1);
 //		$("#imageList").append('<ul id="carouselList"></ul>');
 //        $("#carouselList").append('<li> <div id="mycarousel_1" class="dynamiccarousel jcarousel-skin-tango"> <ul></ul></div></li>');
 
@@ -190,22 +190,30 @@ $(document).ready(function(){ // MAKE CAROUSELS
     });
     
     $("#test1").jPaginator({
-    	  nbPages:54,
+    	  nbPages:1,
+    	  selectedPage:1,
+    	  nbVisible:6,
     	  overBtnLeft:'#test1_o_left',
     	  overBtnRight:'#test1_o_right',
     	  maxBtnLeft:'#test1_m_left',
     	  maxBtnRight:'#test1_m_right',
     	  onPageClicked: function(a,num) {
     	      $("#page1").html("demo1 - page : "+num);
+    	      $("#carouselList").remove();
+    	      $("#imageList").append('<ul id="carouselList"></ul>');
+    	      get_media(3, num);
     	  }
     	});
     
 });
 
-function get_media(id)
+// The total number of pages
+var num_pages;
+
+function get_media(id, page)
 {
     jQuery.getJSON('<c:url value="/media/"/>' + id,
-    		{page: 1,
+    		{page: page,
         size: 20
         },
         function(data) {
@@ -219,6 +227,17 @@ function get_media(id)
 
 function show_carousels(data)
 {
+	if(data.numPages != num_pages)
+	{
+		num_pages = data.numPages;
+		$("#test1").trigger("reset",{  
+	        //selectedPage:null, 
+	        nbVisible:6, 
+	        nbPages:num_pages//,
+	        //marginPx:8, 
+	        //speed:1 
+	    }); 
+	}
 	for(var i =0; i< data.sceneIds.length; i++)
 	{
 
@@ -234,6 +253,7 @@ function setup_carousels()
         	    itemLoadCallback: mycarousel_itemLoadCallback, 
             	initCallback: initiate_carousel, 
             	carouselid: this.id, //important!
+            	 itemFallbackDimension:100
     	}); 
 	});
 };
