@@ -87,7 +87,7 @@
 
 		<bean id="emf"
 			class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-			<property name="dbDataSource" ref="dbDataSource" />
+			<property name="dataSource" ref="dbDataSource" />
 			<property name="jpaVendorAdapter">
 				<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
 			</property>
