@@ -83,10 +83,10 @@
 
 		<!-- DataSource configuration for the tomcat jdbc connection pool See here 
 			for more details on commons-dbcp versus tomcat-jdbc: http://blog.ippon.fr/2013/03/13/improving-the-performance-of-the-spring-petclinic-sample-application-part-3-of-5/ -->
-		<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource"
+<!-- 		<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource"
 			p:driverClassName="${jdbc.driverClassName}" p:url="${jdbc.url}"
 			p:username="${jdbc.username}" p:password="${jdbc.password}" />
-
+ -->
 		<!-- Database initializer. If any of the script fails, the initialization 
 			stops. -->
 		<!-- As an alternative, for embedded databases see <jdbc:embedded-database/>. -->
@@ -103,9 +103,19 @@
 		<!-- </jdbc:embedded-database> -->
 		<!-- <bean id="dbDataSource" class="org.springframework.jndi.JndiObjectFactoryBean"> 
 			<property name="jndiName" value="java:comp/env/jdbc/mydb"/> </bean> -->
-		<jee:jndi-lookup id="dataSource" jndi-name="jdbc/test_vidlibdata"
-			resource-ref="true" />
 
+<!-- 		 <jee:jndi-lookup id="dataSource" jndi-name="jdbc/test_vidlibdata"
+			resource-ref="true" />
+ -->
+ 
+ <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+  <property name="jndiName" value="java:comp/env/jdbc/test_vidlibdata"/>
+  <property name="lookupOnStartup" value="true"/>
+  <property name="proxyInterface" value="javax.sql.DataSource"/>
+</bean>
+
+
+ 
 		<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 			<property name="entityManagerFactory" ref="emf" />
 		</bean>

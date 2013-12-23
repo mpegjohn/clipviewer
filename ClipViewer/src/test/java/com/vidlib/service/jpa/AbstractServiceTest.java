@@ -18,7 +18,7 @@ import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:app-context.xml"})
-@ActiveProfiles("test")
+@ActiveProfiles("dev")
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
 	TransactionDbUnitTestExecutionListener.class,
     DirtiesContextTestExecutionListener.class})

@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.1.61, for debian-linux-gnu (i686)
 --
--- Host: localhost    Database: vidlibdata
+-- Host: localhost    Database: test_vidlibdata
 -- ------------------------------------------------------
 -- Server version	5.1.61-0ubuntu0.10.10.1
 
