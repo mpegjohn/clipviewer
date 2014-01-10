@@ -17,6 +17,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.util.UrlPathHelper;
 
 @Controller
+@RequestMapping(value = "/images")
 public class FileAccess {
 	@Autowired
 	private WebApplicationContext context;
@@ -24,7 +25,7 @@ public class FileAccess {
 	/**
 	 * 
 	 */
-	@RequestMapping(value = "/images/**", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public void getFileFromStore(HttpServletRequest request, HttpServletResponse response) {
 		UrlPathHelper helper = new UrlPathHelper();
 		String pathInfo = helper.getServletPath(request);

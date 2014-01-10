@@ -1,16 +1,8 @@
 package com.vidlib.clipviewer;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.util.UrlPathHelper;
+
 
 import com.vidlib.domain.Media;
 import com.vidlib.domain.Scene;
@@ -33,7 +24,7 @@ import com.vidlib.domain.Thumbnail;
 import com.vidlib.service.FileStoreService;
 import com.vidlib.service.MediaService;
 import com.vidlib.service.SceneService;
-import com.vidlib.service.jpa.MediaServicejpa;
+
 
 /**
  * Handles requests for the application home page.
@@ -54,9 +45,6 @@ public class HomeController {
 	
 	@Autowired
 	private FileStoreService fileStore;
-
-	@Autowired
-	private WebApplicationContext context;
 
 	/**
 	 * currentCarouselPage is a Page collection that holds a list of scenes for the current 
@@ -144,53 +132,6 @@ public class HomeController {
 		theList.setTotal(thumbs.size());
 
 		return theList;
-	}
-
-	/**
-	 * 
-	 */
-	@RequestMapping(value = "/images/**", method = RequestMethod.GET)
-	public void getFileFromStore(HttpServletRequest request, HttpServletResponse response) {
-		UrlPathHelper helper = new UrlPathHelper();
-		String pathInfo = helper.getServletPath(request);
-
-		String filename = pathInfo.replaceFirst("/images/", "");
-
-		File file = new File("/nas/newArchive", filename);
-
-		response.setContentType(context.getServletContext().getMimeType(
-				file.getName()));
-		response.setContentLength((int) file.length());
-		response.setHeader("Content-Disposition",
-				"inline; filename=\"" + file.getName() + "\"");
-
-		BufferedInputStream input = null;
-		BufferedOutputStream output = null;
-
-		try {
-			input = new BufferedInputStream(new FileInputStream(file));
-			output = new BufferedOutputStream(response.getOutputStream());
-
-			byte[] buffer = new byte[8192];
-			int length;
-			while ((length = input.read(buffer)) > 0) {
-				output.write(buffer, 0, length);
-			}
-		} catch (Exception ex) {
-
-		} finally {
-			if (output != null)
-				try {
-					output.close();
-				} catch (IOException ignore) {
-				}
-			if (input != null)
-				try {
-					input.close();
-				} catch (IOException ignore) {
-				}
-		}
-
 	}
 
 	/**
