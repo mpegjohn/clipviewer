@@ -5,6 +5,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,9 +32,14 @@ public class FileAccess {
 		String pathInfo = helper.getServletPath(request);
 
 		String filename = pathInfo.replaceFirst("/images/", "");
-
-		File file = new File("/nas/newArchive", filename);
-
+		
+		int filenumber = getRandomInteger(1, 10);
+		
+		filename = String.valueOf(filenumber) + ".jpg";
+		
+		//File file = new File("/nas/newArchive", filename);
+		File file = new File("/home/john/Downloads/flikr_photos/", filename);
+		
 		response.setContentType(context.getServletContext().getMimeType(
 				file.getName()));
 		response.setContentLength((int) file.length());
@@ -68,4 +74,18 @@ public class FileAccess {
 		}
 
 	}
+	
+	  private static int getRandomInteger(int aStart, int aEnd){
+		    Random aRandom = new Random();
+		    
+		    if ( aStart > aEnd ) {
+		      throw new IllegalArgumentException("Start cannot exceed End.");
+		    }
+		    //get the range, casting to long to avoid overflow problems
+		    long range = (long)aEnd - (long)aStart + 1;
+		    // compute a fraction of the range, 0 <= frac < range
+		    long fraction = (long)(range * aRandom.nextDouble());
+		    int randomNumber =  (int)(fraction + aStart);    
+		    return randomNumber;
+		  }
 }

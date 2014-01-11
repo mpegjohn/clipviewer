@@ -83,10 +83,9 @@
 
 		<!-- DataSource configuration for the tomcat jdbc connection pool See here 
 			for more details on commons-dbcp versus tomcat-jdbc: http://blog.ippon.fr/2013/03/13/improving-the-performance-of-the-spring-petclinic-sample-application-part-3-of-5/ -->
-<!-- 		<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource"
-			p:driverClassName="${jdbc.driverClassName}" p:url="${jdbc.url}"
-			p:username="${jdbc.username}" p:password="${jdbc.password}" />
- -->
+		<!-- <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" 
+			p:driverClassName="${jdbc.driverClassName}" p:url="${jdbc.url}" p:username="${jdbc.username}" 
+			p:password="${jdbc.password}" /> -->
 		<!-- Database initializer. If any of the script fails, the initialization 
 			stops. -->
 		<!-- As an alternative, for embedded databases see <jdbc:embedded-database/>. -->
@@ -104,18 +103,17 @@
 		<!-- <bean id="dbDataSource" class="org.springframework.jndi.JndiObjectFactoryBean"> 
 			<property name="jndiName" value="java:comp/env/jdbc/mydb"/> </bean> -->
 
-<!-- 		 <jee:jndi-lookup id="dataSource" jndi-name="jdbc/test_vidlibdata"
-			resource-ref="true" />
- -->
- 
- <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-  <property name="jndiName" value="java:comp/env/jdbc/test_vidlibdata"/>
-  <property name="lookupOnStartup" value="true"/>
-  <property name="proxyInterface" value="javax.sql.DataSource"/>
-</bean>
+		<!-- <jee:jndi-lookup id="dataSource" jndi-name="jdbc/test_vidlibdata" 
+			resource-ref="true" /> -->
+
+		<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+			<property name="jndiName" value="java:comp/env/jdbc/test_vidlibdata" />
+			<property name="lookupOnStartup" value="true" />
+			<property name="proxyInterface" value="javax.sql.DataSource" />
+		</bean>
 
 
- 
+
 		<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 			<property name="entityManagerFactory" ref="emf" />
 		</bean>
@@ -146,29 +144,16 @@
 			</property>
 		</bean>
 
-<!--  
-		<bean id="emf"
-			class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-			<property name="dataSource" ref="dataSource" />
-			<property name="jpaVendorAdapter">
-				<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
-			</property>
-			<property name="packagesToScan" value="com.vidlib.domain" />
-			<property name="jpaProperties">
-				<props>
-				 -->
-					<!-- <prop key="hibernate.dialect"> org.hibernate.dialect.H2Dialect 
-						</prop> -->
-					<!-- 
-					<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-					<prop key="hibernate.max_fetch_depth">3</prop>
-					<prop key="hibernate.jdbc.fetch_size">50</prop>
-					<prop key="hibernate.jdbc.batch_size">10</prop>
-					<prop key="hibernate.show_sql">true</prop>
-				</props>
-			</property>
-		</bean>
-  -->
+		<!-- <bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"> 
+			<property name="dataSource" ref="dataSource" /> <property name="jpaVendorAdapter"> 
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" 
+			/> </property> <property name="packagesToScan" value="com.vidlib.domain" 
+			/> <property name="jpaProperties"> <props> -->
+		<!-- <prop key="hibernate.dialect"> org.hibernate.dialect.H2Dialect </prop> -->
+		<!-- <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop> 
+			<prop key="hibernate.max_fetch_depth">3</prop> <prop key="hibernate.jdbc.fetch_size">50</prop> 
+			<prop key="hibernate.jdbc.batch_size">10</prop> <prop key="hibernate.show_sql">true</prop> 
+			</props> </property> </bean> -->
 		<!--<context:property-placeholder location="classpath:jdbc.properties" 
 			/> -->
 	</beans>
