@@ -18,7 +18,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.util.UrlPathHelper;
 
 @Controller
-@RequestMapping(value = "/images")
+@RequestMapping(value = "/images/**")
 public class FileAccess {
 	@Autowired
 	private WebApplicationContext context;
