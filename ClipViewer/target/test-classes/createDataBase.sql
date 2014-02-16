@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `media`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `media` (
   `id_media` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `id_project` int(10) unsigned DEFAULT NULL,
+  `id_project` int(10) unsigned DEFAULT '0',
   `type` int(10) unsigned DEFAULT NULL,
   `name` varchar(45) NOT NULL,
   `importdate` datetime DEFAULT NULL,
