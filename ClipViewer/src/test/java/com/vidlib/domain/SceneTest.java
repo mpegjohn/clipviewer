@@ -11,7 +11,7 @@ import org.junit.Test;
 public class SceneTest {
 
 	@Test
-	public void test() {
+	public void testScene() {
 		Scene scene = new Scene();
 		
 		scene.setIdScene(1l);
