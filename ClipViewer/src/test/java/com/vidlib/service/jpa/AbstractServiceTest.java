@@ -17,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = {"ServiceLayer-config.xml"})
+@ContextConfiguration(locations = {"classpath:spring/service-config.xml"})
 @ActiveProfiles("dev")
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
 	TransactionDbUnitTestExecutionListener.class,
